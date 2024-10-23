@@ -1,27 +1,36 @@
 part of 'forms.dart';
 
-class PasienForm extends StatefulWidget {
-  const PasienForm({super.key});
+class PasienFormUpdate extends StatefulWidget {
+  final Pasien dataPasien;
+  const PasienFormUpdate({super.key, required this.dataPasien});
 
   @override
-  State<PasienForm> createState() => _PasienFormState();
+  State<PasienFormUpdate> createState() => _PasienFormUpdateState();
 }
 
-class _PasienFormState extends State<PasienForm> {
+class _PasienFormUpdateState extends State<PasienFormUpdate> {
   final _formKey = GlobalKey<FormState>();
   final _nomorRMController = TextEditingController();
   final _namapasienController = TextEditingController();
-  final _tglLahirPasienController =
-      TextEditingController();
-  final _nomorTlpPasienController =
-      TextEditingController();
+  final _tglLahirPasienController = TextEditingController();
+  final _nomorTlpPasienController = TextEditingController();
   final _alamatController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _nomorRMController.text = widget.dataPasien.nomorRm;
+    _namapasienController.text = widget.dataPasien.nama;
+    _tglLahirPasienController.text = widget.dataPasien.tanggalLahir;
+    _nomorTlpPasienController.text = widget.dataPasien.nomorTelepon;
+    _alamatController.text = widget.dataPasien.alamat;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tambah Pasien'),
+        title: const Text('Update Data Pasien'),
       ),
       body: SingleChildScrollView(
         child: Form(

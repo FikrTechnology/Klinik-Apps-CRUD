@@ -27,13 +27,16 @@ class _PoliPageState extends State<PoliPage> {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          PoliItem(poli: Poli(namaPoli: "Poli Anak")),
-          PoliItem(poli: Poli(namaPoli: "Poli Kandungan")),
-          PoliItem(poli: Poli(namaPoli: "Poli Gigi")),
-          PoliItem(poli: Poli(namaPoli: "Poli THT")),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: ListView(
+          children: [
+            PoliItem(poli: Poli(namaPoli: "Poli Anak")),
+            PoliItem(poli: Poli(namaPoli: "Poli Kandungan")),
+            PoliItem(poli: Poli(namaPoli: "Poli Gigi")),
+            PoliItem(poli: Poli(namaPoli: "Poli THT")),
+          ],
+        ),
       ),
     );
   }

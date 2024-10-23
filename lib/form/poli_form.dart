@@ -18,21 +18,24 @@ class _PoliFormState extends State<PoliForm> {
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
-          child: Column(
-            children: [
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Nama Poli',
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              children: [
+                const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Nama Poli',
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Simpan'),
-              ),
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Simpan'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -14,6 +14,17 @@ class _PasienDetailPageState extends State<PasienDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detail Pasien"),
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PasienPage(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.arrow_back)),
       ),
       body: Column(
         children: [
@@ -47,14 +58,35 @@ class _PasienDetailPageState extends State<PasienDetailPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Pasien data = Pasien(
+                      nomorRm: widget.data.nomorRm,
+                      nama: widget.data.nama,
+                      tanggalLahir: widget.data.tanggalLahir,
+                      nomorTelepon: widget.data.nomorTelepon,
+                      alamat: widget.data.alamat);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PasienFormUpdate(
+                        dataPasien: data,
+                      ),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                child: const Text("Ubah", style: TextStyle(color: Colors.white),),
+                child: const Text(
+                  "Ubah",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
               ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                  child: const Text("Hapus", style: TextStyle(color: Colors.white),)),
+                  child: const Text(
+                    "Hapus",
+                    style: TextStyle(color: Colors.white),
+                  )),
             ],
           )
         ],

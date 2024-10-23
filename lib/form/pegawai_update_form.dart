@@ -1,24 +1,36 @@
 part of 'forms.dart';
 
-class PegawaiForm extends StatefulWidget {
-  const PegawaiForm({super.key});
+class PegawaiFormUpdate extends StatefulWidget {
+  final Pegawai dataPegawai;
+  const PegawaiFormUpdate({super.key, required this.dataPegawai});
 
   @override
-  State<PegawaiForm> createState() => _PegawaiFormState();
+  State<PegawaiFormUpdate> createState() => _PegawaiFormUpdateState();
 }
 
-class _PegawaiFormState extends State<PegawaiForm> {
+class _PegawaiFormUpdateState extends State<PegawaiFormUpdate> {
   final _formKey = GlobalKey<FormState>();
   final _nipController = TextEditingController();
   final _namaPegawaiController = TextEditingController();
   final _tglLahirPegawaiController = TextEditingController();
   final _nomorTlpPegawaiController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _nipController.text = widget.dataPegawai.nip;
+    _namaPegawaiController.text = widget.dataPegawai.nama;
+    _tglLahirPegawaiController.text = widget.dataPegawai.tanggalLahir;
+    _nomorTlpPegawaiController.text = widget.dataPegawai.nomorTelepon;
+    _passwordController.text = widget.dataPegawai.password;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tambah Pegawai'),
+        title: const Text('Update Data Pegawai'),
       ),
       body: SingleChildScrollView(
         child: Form(

@@ -6,6 +6,7 @@ import '../widgets/widgets.dart';
 import '../form/forms.dart';
 
 part '../main.dart';
+part 'home.dart';
 part 'poli/poli_page.dart';
 part 'poli/poli_detail_page.dart';
 part 'pegawai/pegawai_page.dart';

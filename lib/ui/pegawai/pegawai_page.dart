@@ -27,41 +27,44 @@ class _PegawaiPageState extends State<PegawaiPage> {
           )
         ],
       ),
-      body: ListView(
-        children: [
-          PegawaiItem(
-            pegawai: Pegawai(
-                nip: '17220207',
-                nama: 'Muhammad Fikrie',
-                tanggalLahir: '12-12-1234',
-                nomorTelepon: '081234567890',
-                password: 'testAja'),
-          ),
-          PegawaiItem(
-            pegawai: Pegawai(
-                nip: '17220201',
-                nama: 'panjul',
-                tanggalLahir: '12-12-1235',
-                nomorTelepon: '081234567891',
-                password: 'testsini'),
-          ),
-          PegawaiItem(
-            pegawai: Pegawai(
-                nip: '17220202',
-                nama: 'Ijul',
-                tanggalLahir: '12-12-1236',
-                nomorTelepon: '081234567892',
-                password: 'testMulu'),
-          ),
-          PegawaiItem(
-            pegawai: Pegawai(
-                nip: '17220203',
-                nama: 'bre',
-                tanggalLahir: '12-12-1232',
-                nomorTelepon: '081234567899',
-                password: 'okeeeh'),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: ListView(
+          children: [
+            PegawaiItem(
+              pegawai: Pegawai(
+                  nip: '17220207',
+                  nama: 'Muhammad Fikrie',
+                  tanggalLahir: '12-12-1234',
+                  nomorTelepon: '081234567890',
+                  password: 'testAja'),
+            ),
+            PegawaiItem(
+              pegawai: Pegawai(
+                  nip: '17220201',
+                  nama: 'panjul',
+                  tanggalLahir: '12-12-1235',
+                  nomorTelepon: '081234567891',
+                  password: 'testsini'),
+            ),
+            PegawaiItem(
+              pegawai: Pegawai(
+                  nip: '17220202',
+                  nama: 'Ijul',
+                  tanggalLahir: '12-12-1236',
+                  nomorTelepon: '081234567892',
+                  password: 'testMulu'),
+            ),
+            PegawaiItem(
+              pegawai: Pegawai(
+                  nip: '17220203',
+                  nama: 'bre',
+                  tanggalLahir: '12-12-1232',
+                  nomorTelepon: '081234567899',
+                  password: 'okeeeh'),
+            ),
+          ],
+        ),
       ),
     );
   }

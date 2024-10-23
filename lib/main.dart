@@ -19,7 +19,10 @@ class MyApp extends StatelessWidget {
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       initialRoute: '/',
       routes: {
-        '/': (context) => const PoliPage(),
+        '/': (context) => const HomePage(),
+        '/poliPage': (context) => const PoliPage(),
+        '/pegawaiPage': (context) => const PegawaiPage(),
+        '/pasienPage': (context) => const PasienPage(),
       },
     );
   }
