@@ -1,20 +1,28 @@
 part of 'forms.dart';
 
-class PoliForm extends StatefulWidget {
-  const PoliForm({super.key});
+class PoliFormUpdate extends StatefulWidget {
+  final Poli data;
+  const PoliFormUpdate({super.key, required this.data});
 
   @override
-  State<PoliForm> createState() => _PoliFormState();
+  State<PoliFormUpdate> createState() => _PoliFormUpdateState();
 }
 
-class _PoliFormState extends State<PoliForm> {
+class _PoliFormUpdateState extends State<PoliFormUpdate> {
   final _formKey = GlobalKey<FormState>();
   final _namaPoli = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _namaPoli.text = widget.data.namaPoli;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tambah Poli'),
+        title: const Text('Update Data Pasien'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -26,8 +34,9 @@ class _PoliFormState extends State<PoliForm> {
                 TextField(
                   controller: _namaPoli,
                   decoration: const InputDecoration(
-                    labelText: 'Nama Poli',
+                    labelText: 'Nomor RM',
                   ),
+                  keyboardType: TextInputType.number,
                 ),
                 const SizedBox(
                   height: 20,

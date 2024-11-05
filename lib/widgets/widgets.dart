@@ -7,3 +7,5 @@ import '../ui/pages.dart';
 part 'poli_item_widget.dart';
 part 'pegawai_item_widget.dart';
 part 'pasien_item_widget.dart';
+part 'btn_delete_widget.dart';
+part 'btn_update_widget.dart';
