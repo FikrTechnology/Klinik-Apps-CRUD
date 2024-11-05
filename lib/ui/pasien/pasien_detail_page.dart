@@ -57,7 +57,10 @@ class _PasienDetailPageState extends State<PasienDetailPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
+              BtnUpdate(
+                text: "Ubah",
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
                 onPressed: () {
                   Pasien data = Pasien(
                       nomorRm: widget.data.nomorRm,
@@ -74,19 +77,19 @@ class _PasienDetailPageState extends State<PasienDetailPage> {
                     ),
                   );
                 },
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                child: const Text(
-                  "Ubah",
-                  style: TextStyle(color: Colors.white),
-                ),
               ),
-              ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                  child: const Text(
-                    "Hapus",
-                    style: TextStyle(color: Colors.white),
-                  )),
+              BtnDelete(
+                buttonText: "Hapus",
+                backgroundColor: Colors.red,
+                onConfirm: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PasienPage(),
+                    ),
+                  );
+                },
+              ),
             ],
           )
         ],

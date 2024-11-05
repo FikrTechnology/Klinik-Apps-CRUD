@@ -7,6 +7,8 @@ import '../form/forms.dart';
 
 part '../main.dart';
 part 'home.dart';
+part 'beranda_page.dart';
+part 'login_page.dart';
 part 'poli/poli_page.dart';
 part 'poli/poli_detail_page.dart';
 part 'pegawai/pegawai_page.dart';

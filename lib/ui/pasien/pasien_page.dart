@@ -11,6 +11,7 @@ class _PasienPageState extends State<PasienPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const SidebarWidget(),
       appBar: AppBar(
         title: const Text('Data Pasien'),
         actions: [

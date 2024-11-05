@@ -11,6 +11,7 @@ class _PegawaiPageState extends State<PegawaiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const SidebarWidget(),
       appBar: AppBar(
         title: const Text('Data Pegawai'),
         actions: [

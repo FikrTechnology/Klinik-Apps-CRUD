@@ -58,7 +58,10 @@ class _PegawaiDetailPageState extends State<PegawaiDetailPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
+              BtnUpdate(
+                text: "Ubah",
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
                 onPressed: () {
                   Pegawai data = Pegawai(
                       nip: widget.data.nip,
@@ -75,19 +78,19 @@ class _PegawaiDetailPageState extends State<PegawaiDetailPage> {
                     ),
                   );
                 },
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                child: const Text(
-                  "Ubah",
-                  style: TextStyle(color: Colors.white),
-                ),
               ),
-              ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                  child: const Text(
-                    "Hapus",
-                    style: TextStyle(color: Colors.white),
-                  )),
+              BtnDelete(
+                buttonText: "Hapus",
+                backgroundColor: Colors.red,
+                onConfirm: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PegawaiPage(),
+                    ),
+                  );
+                },
+              ),
             ],
           )
         ],

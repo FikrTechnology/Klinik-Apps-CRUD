@@ -31,29 +31,32 @@ class _PoliDetailPageState extends State<PoliDetailPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
+              BtnUpdate(
+                text: "Ubah",
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
                 onPressed: () {
                   Poli data = Poli(namaPoli: widget.poli.namaPoli);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => PoliFormUpdate(data: data),
-                    )
+                    ),
                   );
                 },
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                child: const Text(
-                  "Ubah",
-                  style: TextStyle(color: Colors.white),
-                ),
               ),
-              ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                  child: const Text(
-                    "Hapus",
-                    style: TextStyle(color: Colors.white),
-                  )),
+              BtnDelete(
+                buttonText: "Hapus",
+                backgroundColor: Colors.red,
+                onConfirm: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PoliPage(),
+                    ),
+                  );
+                },
+              ),
             ],
           )
         ],

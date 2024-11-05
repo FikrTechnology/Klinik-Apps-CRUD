@@ -16,14 +16,15 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const HomePage(),
-        '/poliPage': (context) => const PoliPage(),
-        '/pegawaiPage': (context) => const PegawaiPage(),
-        '/pasienPage': (context) => const PasienPage(),
-      },
+      home: const LoginPage(),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => const LoginPage(),
+      //   '/beranda': (context) => const BerandaPage(),
+      //   '/poliPage': (context) => const PoliPage(),
+      //   '/pegawaiPage': (context) => const PegawaiPage(),
+      //   '/pasienPage': (context) => const PasienPage(),
+      // },
     );
   }
 }
