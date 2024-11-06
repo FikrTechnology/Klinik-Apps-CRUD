@@ -4,6 +4,7 @@ class Pegawai {
   String nama;
   String tanggalLahir;
   String nomorTelepon;
+  String username;
   String password;
 
   Pegawai(
@@ -12,5 +13,6 @@ class Pegawai {
       required this.nama,
       required this.tanggalLahir,
       required this.nomorTelepon,
+      required this.username,
       required this.password});
 }

@@ -49,6 +49,10 @@ class _PegawaiDetailPageState extends State<PegawaiDetailPage> {
             style: const TextStyle(fontSize: 20),
           ),
           Text(
+            "Username : ${widget.data.username}",
+            style: const TextStyle(fontSize: 20),
+          ),
+          Text(
             "Password : ${widget.data.password}",
             style: const TextStyle(fontSize: 20),
           ),
@@ -68,6 +72,7 @@ class _PegawaiDetailPageState extends State<PegawaiDetailPage> {
                       nama: widget.data.nama,
                       tanggalLahir: widget.data.tanggalLahir,
                       nomorTelepon: widget.data.nomorTelepon,
+                      username: widget.data.username,
                       password: widget.data.password);
                   Navigator.push(
                     context,

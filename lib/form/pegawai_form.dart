@@ -13,6 +13,7 @@ class _PegawaiFormState extends State<PegawaiForm> {
   final _namaPegawaiController = TextEditingController();
   final _tglLahirPegawaiController = TextEditingController();
   final _nomorTlpPegawaiController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,12 @@ class _PegawaiFormState extends State<PegawaiForm> {
                   ),
                 ),
                 TextField(
+                  controller: _usernameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Username',
+                  ),
+                ),
+                TextField(
                   controller: _passwordController,
                   decoration: const InputDecoration(
                     labelText: 'Password',
@@ -67,6 +74,7 @@ class _PegawaiFormState extends State<PegawaiForm> {
                         nama: _namaPegawaiController.text,
                         tanggalLahir: _tglLahirPegawaiController.text,
                         nomorTelepon: _nomorTlpPegawaiController.text,
+                        username: _usernameController.text,
                         password: _passwordController.text);
                     Navigator.pushReplacement(
                       context,

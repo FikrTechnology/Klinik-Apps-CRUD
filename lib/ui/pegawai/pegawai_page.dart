@@ -38,6 +38,7 @@ class _PegawaiPageState extends State<PegawaiPage> {
                   nama: 'Muhammad Fikrie',
                   tanggalLahir: '12-12-1234',
                   nomorTelepon: '081234567890',
+                  username: 'fikri123@bsi.ac.id',
                   password: 'testAja'),
             ),
             PegawaiItem(
@@ -46,6 +47,7 @@ class _PegawaiPageState extends State<PegawaiPage> {
                   nama: 'panjul',
                   tanggalLahir: '12-12-1235',
                   nomorTelepon: '081234567891',
+                  username: 'panjul@bsi.ac.id',
                   password: 'testsini'),
             ),
             PegawaiItem(
@@ -54,6 +56,7 @@ class _PegawaiPageState extends State<PegawaiPage> {
                   nama: 'Ijul',
                   tanggalLahir: '12-12-1236',
                   nomorTelepon: '081234567892',
+                  username: 'Ijul@bsi.ac.id',
                   password: 'testMulu'),
             ),
             PegawaiItem(
@@ -62,6 +65,7 @@ class _PegawaiPageState extends State<PegawaiPage> {
                   nama: 'bre',
                   tanggalLahir: '12-12-1232',
                   nomorTelepon: '081234567899',
+                  username: 'bre@bsi.ac.id',
                   password: 'okeeeh'),
             ),
           ],

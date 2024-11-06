@@ -14,6 +14,7 @@ class _PegawaiFormUpdateState extends State<PegawaiFormUpdate> {
   final _namaPegawaiController = TextEditingController();
   final _tglLahirPegawaiController = TextEditingController();
   final _nomorTlpPegawaiController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
@@ -23,6 +24,7 @@ class _PegawaiFormUpdateState extends State<PegawaiFormUpdate> {
     _namaPegawaiController.text = widget.dataPegawai.nama;
     _tglLahirPegawaiController.text = widget.dataPegawai.tanggalLahir;
     _nomorTlpPegawaiController.text = widget.dataPegawai.nomorTelepon;
+    _usernameController.text = widget.dataPegawai.username;
     _passwordController.text = widget.dataPegawai.password;
   }
 
@@ -64,6 +66,12 @@ class _PegawaiFormUpdateState extends State<PegawaiFormUpdate> {
                   ),
                 ),
                 TextField(
+                  controller: _usernameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Username',
+                  ),
+                ),
+                TextField(
                   controller: _passwordController,
                   decoration: const InputDecoration(
                     labelText: 'Password',
@@ -79,6 +87,7 @@ class _PegawaiFormUpdateState extends State<PegawaiFormUpdate> {
                         nama: _namaPegawaiController.text,
                         tanggalLahir: _tglLahirPegawaiController.text,
                         nomorTelepon: _nomorTlpPegawaiController.text,
+                        username: _usernameController.text,
                         password: _passwordController.text);
                     Navigator.pushReplacement(
                       context,
