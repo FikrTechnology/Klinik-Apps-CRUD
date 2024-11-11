@@ -83,13 +83,34 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const BerandaPage(),
-              ),
-            );
+          onPressed: () async {
+            String username = _usernameCtrl.text;
+            String password = _passwordCtrl.text;
+            await LoginService().login(username, password).then((isLogin) {
+              if (isLogin) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BerandaPage(),
+                  ),
+                );
+              } else {
+                AlertDialog alertDialog = AlertDialog(
+                  content: const Text('Username atau Password tidak valid'),
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green),
+                      child: const Text('OK'),
+                    )
+                  ],
+                );
+                showDialog(context: context, builder: (context) => alertDialog);
+              }
+            });
           },
           child: const Text('Login')),
     );

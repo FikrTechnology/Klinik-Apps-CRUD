@@ -1,7 +1,17 @@
 part of 'ui/pages.dart';
 
-void main() {
-  runApp(const MyApp());
+// void main() {
+//   runApp(const MyApp());
+// }
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var token = await UserInfo().getToken();
+  runApp(MaterialApp(
+    title: 'Klinik Kite',
+    debugShowCheckedModeBanner: false,
+    home: token == null ? const LoginPage() : const BerandaPage(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
