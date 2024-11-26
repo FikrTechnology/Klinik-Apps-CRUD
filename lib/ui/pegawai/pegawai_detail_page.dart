@@ -9,6 +9,10 @@ class PegawaiDetailPage extends StatefulWidget {
 }
 
 class _PegawaiDetailPageState extends State<PegawaiDetailPage> {
+  Stream<Pegawai> getData() async* {
+    Pegawai data = await PegawaiService().getById(widget.data.id.toString());
+    yield data;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,78 +31,89 @@ class _PegawaiDetailPageState extends State<PegawaiDetailPage> {
           icon: const Icon(Icons.arrow_back),
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            "NIP : ${widget.data.nip}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          Text(
-            "Nama : ${widget.data.nama}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          Text(
-            "Tanggal Lahir : ${widget.data.tanggalLahir}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          Text(
-            "Nomor Telepon : ${widget.data.nomorTelepon}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          Text(
-            "Username : ${widget.data.username}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          Text(
-            "Password : ${widget.data.password}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: StreamBuilder<Object>(
+        stream: getData(),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.hasError) Text(snapshot.error.toString());
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (!snapshot.hasData &&
+              snapshot.connectionState == ConnectionState.done) {
+            return const Center(child: Text('Tidak ada data'));
+          }
+          return Column(
             children: [
-              BtnUpdate(
-                text: "Ubah",
-                backgroundColor: Colors.green,
-                textColor: Colors.white,
-                onPressed: () {
-                  Pegawai data = Pegawai(
-                      nip: widget.data.nip,
-                      nama: widget.data.nama,
-                      tanggalLahir: widget.data.tanggalLahir,
-                      nomorTelepon: widget.data.nomorTelepon,
-                      username: widget.data.username,
-                      password: widget.data.password);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PegawaiFormUpdate(
-                        dataPegawai: data,
-                      ),
-                    ),
-                  );
-                },
+              const SizedBox(
+                height: 20,
               ),
-              BtnDelete(
-                buttonText: "Hapus",
-                backgroundColor: Colors.red,
-                onConfirm: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PegawaiPage(),
-                    ),
-                  );
-                },
+              Text(
+                "NIP : ${snapshot.data.nip}",
+                style: const TextStyle(fontSize: 20),
               ),
+              Text(
+                "Nama : ${snapshot.data.nama}",
+                style: const TextStyle(fontSize: 20),
+              ),
+              Text(
+                "Tanggal Lahir : ${snapshot.data.tanggalLahir}",
+                style: const TextStyle(fontSize: 20),
+              ),
+              Text(
+                "Nomor Telepon : ${snapshot.data.nomorTelepon}",
+                style: const TextStyle(fontSize: 20),
+              ),
+              Text(
+                "Username : ${snapshot.data.username}",
+                style: const TextStyle(fontSize: 20),
+              ),
+              Text(
+                "Password : ${snapshot.data.password}",
+                style: const TextStyle(fontSize: 20),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  StreamBuilder<Object>(
+                    stream: getData(),
+                    builder: (context, AsyncSnapshot snapshot) {
+                      return BtnUpdate(
+                        text: "Ubah",
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PegawaiFormUpdate(
+                                dataPegawai: snapshot.data,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  ),
+                  BtnDelete(
+                    buttonText: "Hapus",
+                    backgroundColor: Colors.red,
+                    onConfirm: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PegawaiPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              )
             ],
-          )
-        ],
+          );
+        }
       ),
     );
   }

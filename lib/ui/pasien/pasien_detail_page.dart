@@ -9,6 +9,11 @@ class PasienDetailPage extends StatefulWidget {
 }
 
 class _PasienDetailPageState extends State<PasienDetailPage> {
+  Stream<Pasien> getData() async* {
+    Pasien data = await PasienService().getById(widget.data.id.toString());
+    yield data;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,73 +31,85 @@ class _PasienDetailPageState extends State<PasienDetailPage> {
             },
             icon: const Icon(Icons.arrow_back)),
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            "Nomor RM : ${widget.data.nomorRm}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          Text(
-            "Nama : ${widget.data.nama}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          Text(
-            "Tanggal Lahir : ${widget.data.tanggalLahir}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          Text(
-            "Nomor Telepon : ${widget.data.nomorTelepon}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          Text(
-            "Alamat : ${widget.data.alamat}",
-            style: const TextStyle(fontSize: 20),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: StreamBuilder<Object>(
+        stream: getData(),
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.hasError) Text(snapshot.error.toString());
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (!snapshot.hasData &&
+              snapshot.connectionState == ConnectionState.done) {
+            return const Center(child: Text('Tidak ada data'));
+          }
+          return Column(
             children: [
-              BtnUpdate(
-                text: "Ubah",
-                backgroundColor: Colors.green,
-                textColor: Colors.white,
-                onPressed: () {
-                  Pasien data = Pasien(
-                      nomorRm: widget.data.nomorRm,
-                      nama: widget.data.nama,
-                      tanggalLahir: widget.data.tanggalLahir,
-                      nomorTelepon: widget.data.nomorTelepon,
-                      alamat: widget.data.alamat);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PasienFormUpdate(
-                        dataPasien: data,
-                      ),
-                    ),
-                  );
-                },
+              const SizedBox(
+                height: 20,
               ),
-              BtnDelete(
-                buttonText: "Hapus",
-                backgroundColor: Colors.red,
-                onConfirm: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PasienPage(),
-                    ),
-                  );
-                },
+              Text(
+                "Nomor RM : ${snapshot.data.nomorRm}",
+                style: const TextStyle(fontSize: 20),
               ),
+              Text(
+                "Nama : ${snapshot.data.nama}",
+                style: const TextStyle(fontSize: 20),
+              ),
+              Text(
+                "Tanggal Lahir : ${snapshot.data.tanggalLahir}",
+                style: const TextStyle(fontSize: 20),
+              ),
+              Text(
+                "Nomor Telepon : ${snapshot.data.nomorTelepon}",
+                style: const TextStyle(fontSize: 20),
+              ),
+              Text(
+                "Alamat : ${snapshot.data.alamat}",
+                style: const TextStyle(fontSize: 20),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  StreamBuilder<Object>(
+                    stream: getData(),
+                    builder: (context, AsyncSnapshot snapshot) {
+                      return BtnUpdate(
+                        text: "Ubah",
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PasienFormUpdate(
+                                dataPasien: snapshot.data,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  ),
+                  BtnDelete(
+                    buttonText: "Hapus",
+                    backgroundColor: Colors.red,
+                    onConfirm: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PasienPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              )
             ],
-          )
-        ],
+          );
+        }
       ),
     );
   }

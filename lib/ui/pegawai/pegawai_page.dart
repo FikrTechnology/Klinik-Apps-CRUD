@@ -51,14 +51,7 @@ class _PegawaiPageState extends State<PegawaiPage> {
               child: ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
-                  return PegawaiItem(
-                      pegawai: Pegawai(
-                          nip: snapshot.data[index].nip,
-                          nama: snapshot.data[index].nama,
-                          tanggalLahir: snapshot.data[index].tanggalLahir,
-                          nomorTelepon: snapshot.data[index].nomorTelepon,
-                          username: snapshot.data[index].username,
-                          password: snapshot.data[index].password));
+                  return PegawaiItem(pegawai: snapshot.data[index]);
                 },
               ),
             );

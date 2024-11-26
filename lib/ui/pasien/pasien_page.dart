@@ -51,12 +51,7 @@ class _PasienPageState extends State<PasienPage> {
               child: ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) => PasienItem(
-                  pasien: Pasien(
-                      nomorRm: snapshot.data[index].nomorRm,
-                      nama: snapshot.data[index].nama,
-                      tanggalLahir: snapshot.data[index].tanggalLahir,
-                      nomorTelepon: snapshot.data[index].nomorTelepon,
-                      alamat: snapshot.data[index].alamat),
+                  pasien: snapshot.data[index]
                 ),
               ),
             );
