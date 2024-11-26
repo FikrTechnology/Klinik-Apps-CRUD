@@ -27,7 +27,7 @@ class Pasien {
 
   Map<String, dynamic> toJson() {
     return {
-      // 'id': id,
+      'id': id,
       'nomor_rm': nomorRm,
       'nama': nama,
       'tanggal_lahir': tanggalLahir,

@@ -8,6 +8,11 @@ class PoliPage extends StatefulWidget {
 }
 
 class _PoliPageState extends State<PoliPage> {
+  Stream<List<Poli>> getList() async* {
+    List<Poli> data = await PoliService().listData();
+    yield data;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,17 +33,29 @@ class _PoliPageState extends State<PoliPage> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: ListView(
-          children: [
-            PoliItem(poli: Poli(namaPoli: "Poli Anak")),
-            PoliItem(poli: Poli(namaPoli: "Poli Kandungan")),
-            PoliItem(poli: Poli(namaPoli: "Poli Gigi")),
-            PoliItem(poli: Poli(namaPoli: "Poli THT")),
-          ],
-        ),
-      ),
+      body: StreamBuilder<Object>(
+          stream: getList(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            }
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (!snapshot.hasData &&
+                snapshot.connectionState == ConnectionState.done) {
+              return const Text('Data Kosong');
+            }
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  return PoliItem(poli: snapshot.data[index]);
+                },
+              ),
+            );
+          }),
     );
   }
 }

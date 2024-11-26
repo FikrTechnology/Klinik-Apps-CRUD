@@ -30,7 +30,7 @@ class Pegawai {
 
   Map<String, dynamic> toJson() {
     return {
-      // 'id': id,
+      'id': id,
       'nip': nip,
       'nama': nama,
       'tanggal_lahir': tanggalLahir,

@@ -8,6 +8,11 @@ class PegawaiPage extends StatefulWidget {
 }
 
 class _PegawaiPageState extends State<PegawaiPage> {
+  Stream<List<Pegawai>> getList() async* {
+    List<Pegawai> data = await PegawaiService().listData();
+    yield data;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,49 +33,36 @@ class _PegawaiPageState extends State<PegawaiPage> {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: ListView(
-          children: [
-            PegawaiItem(
-              pegawai: Pegawai(
-                  nip: '17220207',
-                  nama: 'Muhammad Fikrie',
-                  tanggalLahir: '12-12-1234',
-                  nomorTelepon: '081234567890',
-                  username: 'fikri123@bsi.ac.id',
-                  password: 'testAja'),
-            ),
-            PegawaiItem(
-              pegawai: Pegawai(
-                  nip: '17220201',
-                  nama: 'panjul',
-                  tanggalLahir: '12-12-1235',
-                  nomorTelepon: '081234567891',
-                  username: 'panjul@bsi.ac.id',
-                  password: 'testsini'),
-            ),
-            PegawaiItem(
-              pegawai: Pegawai(
-                  nip: '17220202',
-                  nama: 'Ijul',
-                  tanggalLahir: '12-12-1236',
-                  nomorTelepon: '081234567892',
-                  username: 'Ijul@bsi.ac.id',
-                  password: 'testMulu'),
-            ),
-            PegawaiItem(
-              pegawai: Pegawai(
-                  nip: '17220203',
-                  nama: 'bre',
-                  tanggalLahir: '12-12-1232',
-                  nomorTelepon: '081234567899',
-                  username: 'bre@bsi.ac.id',
-                  password: 'okeeeh'),
-            ),
-          ],
-        ),
-      ),
+      body: StreamBuilder<Object>(
+          stream: getList(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            }
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (!snapshot.hasData &&
+                snapshot.connectionState == ConnectionState.done) {
+              return const Center(child: Text('Tidak Ada Data'));
+            }
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  return PegawaiItem(
+                      pegawai: Pegawai(
+                          nip: snapshot.data[index].nip,
+                          nama: snapshot.data[index].nama,
+                          tanggalLahir: snapshot.data[index].tanggalLahir,
+                          nomorTelepon: snapshot.data[index].nomorTelepon,
+                          username: snapshot.data[index].username,
+                          password: snapshot.data[index].password));
+                },
+              ),
+            );
+          }),
     );
   }
 }

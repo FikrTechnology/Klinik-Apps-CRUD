@@ -13,7 +13,7 @@ class Poli {
 
   Map<String, dynamic> toJson() {
     return {
-      // 'id': id,
+      'id': id,
       'nama_poli': namaPoli,
     };
   }

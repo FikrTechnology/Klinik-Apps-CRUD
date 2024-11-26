@@ -8,6 +8,11 @@ class PasienPage extends StatefulWidget {
 }
 
 class _PasienPageState extends State<PasienPage> {
+  Stream<List<Pasien>> getList() async* {
+    List<Pasien> data = await PasienService().listData();
+    yield data;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,40 +33,34 @@ class _PasienPageState extends State<PasienPage> {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: ListView(
-          children: [
-            PasienItem(
-              pasien: Pasien(
-                nomorRm: '101',
-                nama: 'Renaldo',
-                tanggalLahir: '01-12-1234',
-                nomorTelepon: '081234567890',
-                alamat: 'disana',
+      body: StreamBuilder<Object>(
+          stream: getList(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            }
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (!snapshot.hasData &&
+                snapshot.connectionState == ConnectionState.done) {
+              return const Center(child: Text("Tidak Ada Data"));
+            }
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) => PasienItem(
+                  pasien: Pasien(
+                      nomorRm: snapshot.data[index].nomorRm,
+                      nama: snapshot.data[index].nama,
+                      tanggalLahir: snapshot.data[index].tanggalLahir,
+                      nomorTelepon: snapshot.data[index].nomorTelepon,
+                      alamat: snapshot.data[index].alamat),
+                ),
               ),
-            ),
-            PasienItem(
-              pasien: Pasien(
-                nomorRm: '102',
-                nama: 'Nico',
-                tanggalLahir: '01-12-1235',
-                nomorTelepon: '081234567891',
-                alamat: 'disini',
-              ),
-            ),
-            PasienItem(
-              pasien: Pasien(
-                nomorRm: '103',
-                nama: 'Ardie',
-                tanggalLahir: '01-12-1236',
-                nomorTelepon: '081234567892',
-                alamat: 'disitu',
-              ),
-            ),
-          ],
-        ),
-      ),
+            );
+          }),
     );
   }
 }
