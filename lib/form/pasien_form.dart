@@ -11,10 +11,8 @@ class _PasienFormState extends State<PasienForm> {
   final _formKey = GlobalKey<FormState>();
   final _nomorRMController = TextEditingController();
   final _namapasienController = TextEditingController();
-  final _tglLahirPasienController =
-      TextEditingController();
-  final _nomorTlpPasienController =
-      TextEditingController();
+  final _tglLahirPasienController = TextEditingController();
+  final _nomorTlpPasienController = TextEditingController();
   final _alamatController = TextEditingController();
 
   @override
@@ -67,19 +65,21 @@ class _PasienFormState extends State<PasienForm> {
                   height: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Pasien data = Pasien(
                         nomorRm: _nomorRMController.text,
                         nama: _namapasienController.text,
                         tanggalLahir: _tglLahirPasienController.text,
                         nomorTelepon: _nomorTlpPasienController.text,
                         alamat: _alamatController.text);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PasienDetailPage(data: data),
-                      ),
-                    );
+                    await PasienService().simpan(data).then((value) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PasienDetailPage(data: value),
+                        ),
+                      );
+                    });
                   },
                   child: const Text('Simpan'),
                 ),

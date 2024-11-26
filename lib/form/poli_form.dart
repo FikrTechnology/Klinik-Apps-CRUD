@@ -33,14 +33,16 @@ class _PoliFormState extends State<PoliForm> {
                   height: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Poli data = Poli(namaPoli: _namaPoli.text);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PoliDetailPage(poli: data),
-                      ),
-                    );
+                    await PoliService().simpan(data).then((value) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PoliDetailPage(poli: data),
+                        ),
+                      );
+                    });
                   },
                   child: const Text('Simpan'),
                 ),

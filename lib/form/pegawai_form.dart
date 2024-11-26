@@ -68,7 +68,7 @@ class _PegawaiFormState extends State<PegawaiForm> {
                   height: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Pegawai data = Pegawai(
                         nip: _nipController.text,
                         nama: _namaPegawaiController.text,
@@ -76,12 +76,14 @@ class _PegawaiFormState extends State<PegawaiForm> {
                         nomorTelepon: _nomorTlpPegawaiController.text,
                         username: _usernameController.text,
                         password: _passwordController.text);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PegawaiDetailPage(data: data),
-                      ),
-                    );
+                    await PegawaiService().simpan(data).then((value) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PegawaiDetailPage(data: data),
+                        ),
+                      );
+                    });
                   },
                   child: const Text('Simpan'),
                 ),
