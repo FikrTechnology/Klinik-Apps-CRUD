@@ -76,7 +76,7 @@ class _PasienFormState extends State<PasienForm> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PasienDetailPage(data: value),
+                          builder: (context) => const PasienPage(),
                         ),
                       );
                     });

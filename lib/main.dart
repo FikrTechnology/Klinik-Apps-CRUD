@@ -6,11 +6,12 @@ part of 'ui/pages.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  var token = await UserInfo().getToken();
-  runApp(MaterialApp(
+  // var token = await UserInfo().getToken();
+  runApp(const MaterialApp(
     title: 'Klinik Kite',
     debugShowCheckedModeBanner: false,
-    home: token == null ? const LoginPage() : const BerandaPage(),
+    // home: token == null ? const LoginPage() : const BerandaPage(),
+    home: LoginPage(),
   ));
 }
 

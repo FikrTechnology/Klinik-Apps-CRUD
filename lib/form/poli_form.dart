@@ -39,7 +39,7 @@ class _PoliFormState extends State<PoliForm> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PoliDetailPage(poli: data),
+                          builder: (context) => const PoliPage(),
                         ),
                       );
                     });

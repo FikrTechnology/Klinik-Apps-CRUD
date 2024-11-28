@@ -12,10 +12,18 @@ class _PoliFormUpdateState extends State<PoliFormUpdate> {
   final _formKey = GlobalKey<FormState>();
   final _namaPoli = TextEditingController();
 
+  Future<Poli> getData() async {
+    Poli data = await PoliService().getById(widget.data.id.toString());
+    setState(() {
+      _namaPoli.text = data.namaPoli;
+    });
+    return data;
+  }
+
   @override
   void initState() {
     super.initState();
-    _namaPoli.text = widget.data.namaPoli;
+    getData();
   }
 
   @override
@@ -34,22 +42,27 @@ class _PoliFormUpdateState extends State<PoliFormUpdate> {
                 TextField(
                   controller: _namaPoli,
                   decoration: const InputDecoration(
-                    labelText: 'Nomor RM',
+                    labelText: 'Nama Poli',
                   ),
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.name,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    Poli data = Poli(namaPoli: _namaPoli.text);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PoliDetailPage(poli: data),
-                      ),
-                    );
+                  onPressed: () async {
+                    Poli data =
+                        Poli(id: widget.data.id, namaPoli: _namaPoli.text);
+                    String id = widget.data.id.toString();
+                    await PoliService().ubah(data, id).then((value) {
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PoliDetailPage(poli: data),
+                        ),
+                      );
+                    });
                   },
                   child: const Text('Simpan'),
                 ),

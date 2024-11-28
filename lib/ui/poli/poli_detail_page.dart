@@ -20,6 +20,17 @@ class _PoliDetailPageState extends State<PoliDetailPage> {
       appBar: AppBar(
         title: const Text("Detail Poli"),
         automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PoliPage(),
+              ),
+            );
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
       body: StreamBuilder<Object>(
           stream: getData(),
@@ -55,6 +66,7 @@ class _PoliDetailPageState extends State<PoliDetailPage> {
                             backgroundColor: Colors.green,
                             textColor: Colors.white,
                             onPressed: () {
+                              print(snapshot.data);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -68,13 +80,16 @@ class _PoliDetailPageState extends State<PoliDetailPage> {
                     BtnDelete(
                       buttonText: "Hapus",
                       backgroundColor: Colors.red,
-                      onConfirm: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PoliPage(),
-                          ),
-                        );
+                      onConfirm: () async {
+                        await PoliService().hapus(widget.poli).then((value) {
+                          Navigator.pop(context);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PoliPage(),
+                            ),
+                          );
+                        });
                       },
                     ),
                   ],

@@ -17,15 +17,24 @@ class _PegawaiFormUpdateState extends State<PegawaiFormUpdate> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  Future<Pegawai> getData() async {
+    Pegawai data =
+        await PegawaiService().getById(widget.dataPegawai.id.toString());
+    setState(() {
+      _nipController.text = data.nip;
+      _namaPegawaiController.text = data.nama;
+      _tglLahirPegawaiController.text = data.tanggalLahir;
+      _nomorTlpPegawaiController.text = data.nomorTelepon;
+      _usernameController.text = data.username;
+      _passwordController.text = data.password;
+    });
+    return data;
+  }
+
   @override
   void initState() {
     super.initState();
-    _nipController.text = widget.dataPegawai.nip;
-    _namaPegawaiController.text = widget.dataPegawai.nama;
-    _tglLahirPegawaiController.text = widget.dataPegawai.tanggalLahir;
-    _nomorTlpPegawaiController.text = widget.dataPegawai.nomorTelepon;
-    _usernameController.text = widget.dataPegawai.username;
-    _passwordController.text = widget.dataPegawai.password;
+    getData();
   }
 
   @override
@@ -81,20 +90,25 @@ class _PegawaiFormUpdateState extends State<PegawaiFormUpdate> {
                   height: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Pegawai data = Pegawai(
+                        id: widget.dataPegawai.id,
                         nip: _nipController.text,
                         nama: _namaPegawaiController.text,
                         tanggalLahir: _tglLahirPegawaiController.text,
                         nomorTelepon: _nomorTlpPegawaiController.text,
                         username: _usernameController.text,
                         password: _passwordController.text);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PegawaiDetailPage(data: data),
-                      ),
-                    );
+                    String id = widget.dataPegawai.id.toString();
+                    await PegawaiService().ubah(data, id).then((value) {
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PegawaiDetailPage(data: data),
+                        ),
+                      );
+                    });
                   },
                   child: const Text('Simpan'),
                 ),

@@ -16,14 +16,23 @@ class _PasienFormUpdateState extends State<PasienFormUpdate> {
   final _nomorTlpPasienController = TextEditingController();
   final _alamatController = TextEditingController();
 
+  Future<Pasien> getData() async {
+    Pasien data =
+        await PasienService().getById(widget.dataPasien.id.toString());
+    setState(() {
+      _nomorRMController.text = widget.dataPasien.nomorRm;
+      _namapasienController.text = widget.dataPasien.nama;
+      _tglLahirPasienController.text = widget.dataPasien.tanggalLahir;
+      _nomorTlpPasienController.text = widget.dataPasien.nomorTelepon;
+      _alamatController.text = widget.dataPasien.alamat;
+    });
+    return data;
+  }
+
   @override
   void initState() {
     super.initState();
-    _nomorRMController.text = widget.dataPasien.nomorRm;
-    _namapasienController.text = widget.dataPasien.nama;
-    _tglLahirPasienController.text = widget.dataPasien.tanggalLahir;
-    _nomorTlpPasienController.text = widget.dataPasien.nomorTelepon;
-    _alamatController.text = widget.dataPasien.alamat;
+    getData();
   }
 
   @override
@@ -76,19 +85,24 @@ class _PasienFormUpdateState extends State<PasienFormUpdate> {
                   height: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Pasien data = Pasien(
+                        id: widget.dataPasien.id,
                         nomorRm: _nomorRMController.text,
                         nama: _namapasienController.text,
                         tanggalLahir: _tglLahirPasienController.text,
                         nomorTelepon: _nomorTlpPasienController.text,
                         alamat: _alamatController.text);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PasienDetailPage(data: data),
-                      ),
-                    );
+                    String id = widget.dataPasien.id.toString();
+                    await PasienService().ubah(data, id).then((value) {
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PasienDetailPage(data: data),
+                        ),
+                      );
+                    });
                   },
                   child: const Text('Simpan'),
                 ),

@@ -57,7 +57,6 @@ class ConfirmationDialog extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context);
                 onConfirm();
               },
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),

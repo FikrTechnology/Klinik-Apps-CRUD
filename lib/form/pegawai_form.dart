@@ -80,7 +80,7 @@ class _PegawaiFormState extends State<PegawaiForm> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PegawaiDetailPage(data: data),
+                          builder: (context) => const PegawaiPage(),
                         ),
                       );
                     });

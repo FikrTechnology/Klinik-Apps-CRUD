@@ -86,31 +86,55 @@ class _LoginPageState extends State<LoginPage> {
           onPressed: () async {
             String username = _usernameCtrl.text;
             String password = _passwordCtrl.text;
-            await LoginService().login(username, password).then((isLogin) {
-              if (isLogin) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const BerandaPage(),
-                  ),
-                );
-              } else {
-                AlertDialog alertDialog = AlertDialog(
-                  content: const Text('Username atau Password tidak valid'),
-                  actions: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green),
-                      child: const Text('OK'),
-                    )
-                  ],
-                );
-                showDialog(context: context, builder: (context) => alertDialog);
-              }
-            });
+            // await LoginService().login(username, password).then((isLogin) {
+            //   if (isLogin) {
+            //     Navigator.pushReplacement(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => const BerandaPage(),
+            //       ),
+            //     );
+            //   } else {
+            //     AlertDialog alertDialog = AlertDialog(
+            //       content: const Text('Username atau Password tidak valid'),
+            //       actions: [
+            //         ElevatedButton(
+            //           onPressed: () {
+            //             Navigator.pop(context);
+            //           },
+            //           style: ElevatedButton.styleFrom(
+            //               backgroundColor: Colors.green),
+            //           child: const Text('OK'),
+            //         )
+            //       ],
+            //     );
+            //     showDialog(context: context, builder: (context) => alertDialog);
+            //   }
+            // });
+
+            if (username == 'admin' && password == 'admin') {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BerandaPage(),
+                ),
+              );
+            } else {
+              AlertDialog alertDialog = AlertDialog(
+                content: const Text('Username atau Password tidak valid'),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () {
+                    Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green),
+                    child: const Text('OK'),
+                  )
+                ],
+              );
+              showDialog(context: context, builder: (context) => alertDialog);
+            }
           },
           child: const Text('Login')),
     );
